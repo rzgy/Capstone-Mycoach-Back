@@ -1,5 +1,5 @@
 // middlewares/passport.js
-const Coach = require("../models/Coach");
+const User = require("../models/User");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 const JwtStrategy = require("passport-jwt").Strategy;
@@ -8,22 +8,22 @@ require("dotenv").config();
 
 const localStrategy = new LocalStrategy(
   {
-    emailField: "email",
+    usernameField: "username",
     passwordField: "password",
   },
-  async (email, password, next) => {
+  async (username, password, next) => {
     try {
-      const coach = await Coach.findOne({ email: email });
+      const user = await User.findOne({ username: username });
 
-      if (!coach) {
+      if (!user) {
         return next({ msg: "Username or password is wrong!" });
       }
 
-      const checkPassword = await bcrypt.compare(password, coach.password);
+      const checkPassword = await bcrypt.compare(password, user.password);
       if (checkPassword == false) {
-        return next({ msg: "email or password is wrong!" });
+        return next({ msg: "Username or password is wrong!" });
       }
-      next(false, coach); //req.user
+      next(false, user); //req.user
     } catch (error) {
       next(error);
     }
@@ -38,13 +38,13 @@ const jwtStrategy = new JwtStrategy(
   async (payload, next) => {
     // here you check if token is exp
 
-    const coach = await Coach.findById(payload._id);
+    const user = await User.findById(payload._id);
 
-    if (!coach) {
-      return next({ msg: "Coach not found!" });
+    if (!user) {
+      return next({ msg: "User not found!" });
     }
 
-    next(false, coach); // req.coach
+    next(false, user); // req.user
   }
 );
 

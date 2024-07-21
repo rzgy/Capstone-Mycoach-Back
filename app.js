@@ -6,6 +6,7 @@ const errorHandler = require("./middlewares/errHandler");
 const notFoundHandler = require("./middlewares/notFoundHandler");
 const passport = require("passport");
 const { localStrategy, jwtStrategy } = require("./middlewares/passport");
+const coachRouter = require("./api/coach/routes");
 
 const cors = require("cors");
 const path = require("path");
@@ -23,6 +24,8 @@ app.use(passport.initialize());
 passport.use("local", localStrategy);
 passport.use("jwt", jwtStrategy);
 app.use("/media", express.static(path.join(__dirname, "media")));
+
+app.use("/coaches", coachRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
