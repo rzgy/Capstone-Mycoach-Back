@@ -4,8 +4,8 @@ const {
   register,
   login,
   getCoaches,
-  getMyProfile,
-  updateMyProfile,
+  getMyProfileCoach,
+  updateMyProfileCoach,
 } = require("./controllers");
 const upload = require("../../middlewares/multer");
 
@@ -26,13 +26,13 @@ coachRouter.get(
 coachRouter.get(
   "/myprofile",
   passport.authenticate("jwt", { session: false }),
-  getMyProfile
+  getMyProfileCoach
 );
 coachRouter.put(
   "/myprofile",
   passport.authenticate("jwt", { session: false }),
   upload.single("image"),
-  updateMyProfile
+  updateMyProfileCoach
 );
 
 module.exports = coachRouter;

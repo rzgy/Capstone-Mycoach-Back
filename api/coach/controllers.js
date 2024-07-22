@@ -46,7 +46,7 @@ exports.getCoaches = async (req, res, next) => {
   }
 };
 
-exports.getMyProfile = async (req, res, next) => {
+exports.getMyProfileCoach = async (req, res, next) => {
   try {
     const coach = await Coach.findById(req.user._id).select("-password");
     if (!coach) {
@@ -58,7 +58,7 @@ exports.getMyProfile = async (req, res, next) => {
   }
 };
 
-exports.updateMyProfile = async (req, res, next) => {
+exports.updateMyProfileCoach = async (req, res, next) => {
   if (req.file) {
     req.body.image = req.file.path.replace("\\", "/");
   }

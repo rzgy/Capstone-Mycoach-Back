@@ -15,7 +15,7 @@ const PlanSchema = new mongoose.Schema({
   },
   coach: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "coach",
     required: true,
   },
 });

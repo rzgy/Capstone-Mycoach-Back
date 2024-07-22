@@ -10,6 +10,8 @@ const coachRouter = require("./api/coach/routes");
 
 const cors = require("cors");
 const path = require("path");
+const userRouter = require("./api/users/routes");
+const planRouter = require("./api/plan/routes");
 require("dotenv").config();
 
 app.use(morgan("dev"));
@@ -26,6 +28,8 @@ passport.use("jwt", jwtStrategy);
 app.use("/media", express.static(path.join(__dirname, "media")));
 
 app.use("/coaches", coachRouter);
+app.use("/users", userRouter);
+app.use("/plans", planRouter);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

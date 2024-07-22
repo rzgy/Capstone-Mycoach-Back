@@ -6,14 +6,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  coach: {
-    //test this out
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    default: function () {
-      this.type === "coach" ? null : this._id;
-    },
-  },
+
   gender: {
     type: String,
     required: true,
