@@ -1,9 +1,9 @@
 const Plan = require("../../models/Plan");
 const Coach = require("../../models/Coach");
-const Ingredient = require("../../models/Ingredient");
+
 const User = require("../../models/User");
 
-const getplans = async (req, res, next) => {
+const getPlans = async (req, res, next) => {
   try {
     const plans = await Plan.find();
     res.status(201).json(plans);
@@ -38,7 +38,7 @@ const createPlan = async (req, res, next) => {
       endDay,
     });
 
-    await coach.updateMany(
+    await Coach.updateMany(
       { _id: { $in: coach } },
       { $push: { Plan: Plan._id } }
     );
@@ -95,7 +95,7 @@ const getPlansByUser = async (req, res, next) => {
 };
 
 module.exports = {
-  getplans,
+  getPlans,
   getPlan,
   createPlan,
   updatePlan,
