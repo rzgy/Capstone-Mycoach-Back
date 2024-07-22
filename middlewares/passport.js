@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const localStrategy = new LocalStrategy(
   {
-    emailField: "email",
+    usernameField: "email",
     passwordField: "password",
   },
   async (email, password, next) => {
@@ -25,6 +25,7 @@ const localStrategy = new LocalStrategy(
       }
       next(false, coach); //req.user
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
