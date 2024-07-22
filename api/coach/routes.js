@@ -15,6 +15,7 @@ coachRouter.post("/register", upload.single("image"), register);
 
 coachRouter.post(
   "/login",
+
   passport.authenticate("local", { session: false }),
   login
 );
