@@ -30,9 +30,10 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
   try {
-    const token = generateToken(req.coach);
+    const token = generateToken(req.user);
     return res.status(201).json({ token });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };
