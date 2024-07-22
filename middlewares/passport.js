@@ -25,6 +25,7 @@ const localStrategy = new LocalStrategy(
       }
       next(false, coach); //req.user
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

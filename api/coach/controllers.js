@@ -40,7 +40,7 @@ exports.login = async (req, res, next) => {
 
 exports.getCoaches = async (req, res, next) => {
   try {
-    const Coach = await Coach.find();
+    const coach = await Coach.find();
     res.status(200).json(coach);
   } catch (err) {
     next(err);
@@ -65,7 +65,7 @@ exports.updateMyProfileCoach = async (req, res, next) => {
   }
   try {
     const coach = await Coach.findByIdAndUpdate(
-      req.coach._id,
+      req.user._id,
       { $set: req.body },
       { new: true }
     ).select("-password");
