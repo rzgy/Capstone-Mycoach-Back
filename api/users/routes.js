@@ -14,7 +14,7 @@ const userRouter = express.Router();
 userRouter.post("/register", upload.single("image"), registerUser);
 userRouter.post(
   "/login",
-  passport.authenticate("local", { session: false }),
+  passport.authenticate("local-user", { session: false }),
   loginUser
 );
 userRouter.get(
@@ -24,12 +24,12 @@ userRouter.get(
 );
 userRouter.get(
   "/myprofile",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt-user", { session: false }),
   getMyProfile
 );
 userRouter.put(
   "/myprofile",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt-user", { session: false }),
   upload.single("image"),
   updateMyProfile
 );

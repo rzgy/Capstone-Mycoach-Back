@@ -6,14 +6,14 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt").ExtractJwt;
 require("dotenv").config();
 
-const localStrategy = new LocalStrategy(
+const localStrategyUser = new LocalStrategy(
   {
-    usernameField: "username",
+    usernameField: "email",
     passwordField: "password",
   },
   async (username, password, next) => {
     try {
-      const user = await User.findOne({ username: username });
+      const user = await User.findOne({ email: username });
 
       if (!user) {
         return next({ msg: "Username or password is wrong!" });
@@ -30,7 +30,7 @@ const localStrategy = new LocalStrategy(
   }
 );
 
-const jwtStrategy = new JwtStrategy(
+const jwtStrategyUser = new JwtStrategy(
   {
     jwtFromRequest: fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET,
@@ -48,4 +48,4 @@ const jwtStrategy = new JwtStrategy(
   }
 );
 
-module.exports = { localStrategy, jwtStrategy };
+module.exports = { localStrategyUser, jwtStrategyUser };
