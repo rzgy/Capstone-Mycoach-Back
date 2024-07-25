@@ -11,7 +11,7 @@ const generateToken = (user) => {
   return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
-exports.register = async (req, res, next) => {
+exports.registerUser = async (req, res, next) => {
   if (req.file) {
     req.body.image = req.file.path.replace("\\", "/");
   }

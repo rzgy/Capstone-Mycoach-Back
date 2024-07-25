@@ -21,7 +21,7 @@ coachRouter.post(
 );
 coachRouter.get(
   "/",
-  passport.authenticate("jwt", { session: false }),
+  //   passport.authenticate("jwt", { session: false }),
   getCoaches
 );
 coachRouter.get(
