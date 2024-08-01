@@ -16,16 +16,19 @@ const localStrategy = new LocalStrategy(
       const coach = await Coach.findOne({ email: email });
 
       if (!coach) {
-        return next({ msg: "Username or password is wrong!" });
+        return next({ msg: "email or password is wrong!" });
       }
 
       const checkPassword = await bcrypt.compare(password, coach.password);
       if (checkPassword == false) {
         return next({ msg: "email or password is wrong!" });
       }
+     
+
       next(false, coach); //req.user
     } catch (error) {
       console.log(error);
+
       next(error);
     }
   }
@@ -44,6 +47,8 @@ const jwtStrategy = new JwtStrategy(
     if (!coach) {
       return next({ msg: "Coach not found!" });
     }
+
+    // req.user
 
     next(false, coach); // req.coach
   }

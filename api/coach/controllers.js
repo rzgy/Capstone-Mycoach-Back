@@ -11,6 +11,17 @@ const generateToken = (coach) => {
   return jwt.sign(payload, process.env.JWT_SECRET);
 };
 
+exports.getCoach = async (req, res, next) => {
+  try {
+    console.log(req.body.email);
+    const coach = await Coach.findOne({ email: req.body.email });
+    console.log("coach", coach);
+    if (!coach) return res.status(404).json({ message: "Coach is Not Found" });
+    return res.status(200).json(coach);
+  } catch (error) {
+    next(error);
+  }
+};
 exports.register = async (req, res, next) => {
   if (req.file) {
     req.body.image = req.file.path.replace("\\", "/");
@@ -65,14 +76,27 @@ exports.updateMyProfileCoach = async (req, res, next) => {
   }
   try {
     const coach = await Coach.findByIdAndUpdate(
-      req.user._id,
+      req.coach._id,
       { $set: req.body },
       { new: true }
     ).select("-password");
     if (!coach) {
       return res.status(404).json({ message: "coach not found" });
     }
-    res.status(200).json(user);
+    res.status(200).json(coach);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getCoachById = async (req, res, next) => {
+  try {
+    console.log(req.params._id);
+    const coach = await Coach.findById(req.params._id).select("-password");
+    if (!coach) {
+      return res.status(404).json({ message: "Coach not found" });
+    }
+    res.status(200).json(coach);
   } catch (err) {
     next(err);
   }

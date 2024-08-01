@@ -6,6 +6,8 @@ const {
   getCoaches,
   getMyProfileCoach,
   updateMyProfileCoach,
+  getCoachById,
+  getCoach,
 } = require("./controllers");
 const upload = require("../../middlewares/multer");
 
@@ -35,5 +37,11 @@ coachRouter.put(
   upload.single("image"),
   updateMyProfileCoach
 );
+coachRouter.get(
+  "/:_id",
+  passport.authenticate("jwt", { session: false }),
+  getCoachById
+);
+coachRouter.post("/search", getCoach);
 
 module.exports = coachRouter;

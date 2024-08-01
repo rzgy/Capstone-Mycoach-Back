@@ -6,6 +6,7 @@ const {
   getUsers,
   getMyProfile,
   updateMyProfile,
+  getUserById,
 } = require("./controllers");
 const upload = require("../../middlewares/multer");
 
@@ -26,6 +27,11 @@ userRouter.get(
   "/myprofile",
   passport.authenticate("jwt-user", { session: false }),
   getMyProfile
+);
+userRouter.get(
+  "/:_id",
+  passport.authenticate("jwt", { session: false }),
+  getUserById
 );
 userRouter.put(
   "/myprofile",

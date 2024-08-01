@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const CoachSchema = new mongoose.Schema({
   email: {
@@ -25,6 +26,12 @@ const CoachSchema = new mongoose.Schema({
     type: String,
     default: "../../media/ProfilePic.jpg",
   },
+  chatRooms: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ChatRoom",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Coach", CoachSchema);
